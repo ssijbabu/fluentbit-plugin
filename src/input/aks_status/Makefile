@@ -1,6 +1,6 @@
 all:
 	go mod tidy
-	go build -buildmode=c-shared -a -gcflags=all="-C -l -B" -ldflags="-w -s" -trimpath  -tags netgo,osusergo -o in_gdb.so
+	go build -buildmode=c-shared -a -gcflags=all="-C -l -B" -ldflags="-w -s" -trimpath  -tags netgo,osusergo -o in_aks_status.so
 
 clean:
-	rm -rf in_gdb.so *.h *~
+	rm -rf in_aks_status.so *.h *~
