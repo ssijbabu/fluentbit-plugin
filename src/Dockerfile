@@ -7,11 +7,12 @@ ENV GOOS=linux\
     CGO_ENABLED=1
 
 COPY / /root/
-COPY /common/* /root/out/
 COPY /common/* /root/in/
+COPY /common/* /root/out/
 
-COPY /out_gdb/* /root/out
-COPY /in_gdb/* /root/in
+COPY /input/aks_status/* /root/in
+COPY /input/eventhub/* /root/in
+COPY /output/eventhub/* /root/out
 
 RUN go mod edit -replace github.com/fluent/fluent-bit-go=github.com/fluent/fluent-bit-go@master
 # RUN go mod download & make -C out all
