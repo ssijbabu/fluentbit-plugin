@@ -25,7 +25,7 @@ WORKDIR /tmp
 
 # Build Fluent Bit from source with minimal features
 RUN cd /tmp && \
-    git clone --depth 1 --branch v2.1.10 https://github.com/fluent/fluent-bit.git && \
+    git clone --depth 1 --single-branch --branch v2.1.10 https://github.com/fluent/fluent-bit.git && \
     cd fluent-bit && \
     mkdir -p build && \
     cd build && \
