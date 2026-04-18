@@ -62,35 +62,16 @@ RUN mkdir -p build && \
     touch /app/output/.placeholder
 
 # Runtime stage
-FROM debian:trixie-slim
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    ca-certificates \
-    libssl3 \
-    libcurl4 \
-    libsasl2-2 \
-    zlib1g \
-    libjson-c5 \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy Fluent Bit and libraries from builder
-COPY --from=builder /usr/local /usr/local
+FROM fluent/fluent-bit:2.1.10
 
 # Copy built plugins from builder
-COPY --from=builder /app/output /app/plugins
-
-# Set library path
-ENV LD_LIBRARY_PATH=/usr/local/lib
-ENV PATH=/usr/local/bin:$PATH
+COPY --from=builder /app/output /fluent-bit/plugins
 
 # Copy configuration
-COPY config/fluent-bit.conf /etc/fluent-bit/fluent-bit.conf
-COPY config/parsers.conf /etc/fluent-bit/parsers.conf
-COPY config/plugins.conf /etc/fluent-bit/plugins.conf
+COPY config/fluent-bit.conf /fluent-bit/etc/fluent-bit/fluent-bit.conf
+COPY config/parsers.conf /fluent-bit/etc/fluent-bit/parsers.conf
+COPY config/plugins.conf /fluent-bit/etc/fluent-bit/plugins.conf
 
 WORKDIR /app
 
 EXPOSE 2020
-
-CMD ["/usr/local/bin/fluent-bit", "-c", "/etc/fluent-bit/fluent-bit.conf"]
