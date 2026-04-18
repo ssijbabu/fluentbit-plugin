@@ -2,25 +2,7 @@
 
 ## Prerequisites
 
-### Local Development
-
-1. **Install dependencies** (Ubuntu/Debian):
-```bash
-sudo apt-get install -y build-essential cmake pkg-config libfluent-bit-dev
-```
-
-2. **Install Fluent Bit**:
-```bash
-curl https://raw.githubusercontent.com/fluent/fluent-bit/master/install.sh | sh
-```
-
-### Docker Development
-
-The project includes a Dockerfile that provides a complete build environment:
-
-```bash
-docker build -t fluentbit-plugins .
-```
+Install Docker: https://docs.docker.com/get-docker/
 
 ## Project Structure
 
@@ -34,35 +16,21 @@ fluentbit-plugin/
 ├── config/              # Fluent Bit configuration
 ├── build/               # Build output (generated)
 ├── CMakeLists.txt       # Root CMake configuration
-├── Dockerfile           # Docker build
-├── build.sh             # Build helper script
-└── clean.sh             # Clean helper script
+└── Dockerfile           # Docker build
 ```
 
 ## Building
 
-### Local Build
-
 ```bash
-./build.sh
-```
-
-This will:
-1. Create a `build/` directory
-2. Run CMake configuration
-3. Compile all plugins
-4. Output `.so` files in `build/` directories
-
-### Docker Build
-
-```bash
-docker build -t fluentbit-plugins .
+docker build -t fluentbit-plugin:latest .
 ```
 
 The resulting image:
-- Contains Fluent Bit and all built plugins
+- Contains Fluent Bit v5.0.3 with all built plugins
+- Optimized multi-stage build (~117MB)
 - Runs Fluent Bit by default with custom configuration
-- Output plugins available in `/app/plugins/`
+- Plugins available in `/fluent-bit/plugins/`
+- Pre-configured via `/fluent-bit/etc/fluent-bit/fluent-bit.conf`
 
 ## Creating New Plugins
 

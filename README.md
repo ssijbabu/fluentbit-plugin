@@ -15,30 +15,24 @@ This project provides a template structure for building native C plugins for Flu
 ├── config/                 # Fluent Bit configuration files
 ├── build/                  # Build output directory
 ├── CMakeLists.txt         # CMake build configuration
-├── Dockerfile             # Docker build environment
-└── build.sh               # Build script
+└── Dockerfile             # Docker build environment
 ```
 
 ## Requirements
 
-- GCC or Clang compiler
-- CMake 3.0+
-- Fluent Bit development libraries
-- pkg-config
+- Docker
 
 ## Building
 
-### Local Build
-
 ```bash
-./build.sh
+docker build -t fluentbit-plugin:latest .
 ```
 
-### Docker Build
-
-```bash
-docker build -t fluentbit-plugins .
-```
+This creates a complete container with:
+- Fluent Bit v5.0.3
+- All custom plugins compiled
+- Pre-configured with sample configurations
+- Ready to run: `docker run -it fluentbit-plugin:latest`
 
 ## Plugin Types
 
